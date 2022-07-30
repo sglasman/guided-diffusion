@@ -671,7 +671,10 @@ class GaussianDiffusion:
             model_kwargs=model_kwargs,
         )
         if cond_fn is not None:
-            out = self.condition_score(cond_fn, out_orig, x, t, model_kwargs=model_kwargs)
+            try:
+                out = self.condition_score(cond_fn, out_orig, x, t, model_kwargs=model_kwargs)
+            except Exception:
+                out = out_orig
         else:
             out = out_orig
 
